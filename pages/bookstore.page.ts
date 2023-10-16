@@ -1,4 +1,4 @@
-import { expect, Page, request} from "@playwright/test";
+import { expect, Page } from "@playwright/test";
 import User from "../data/model/user";
 
 export default class BookstorePage {
