@@ -35,7 +35,7 @@ export default class AccountAPI extends AccountBaseApi {
         return response;
     };
 
-    public async getUser(userID: String, token: string): Promise<APIResponse> {
+    public async getUser(userID: string, token: string): Promise<APIResponse> {
         let response: APIResponse = await this.request.get(this.basePath + this.userPath + "/" + userID, {
             headers: {
                 "accept": "application/json",
