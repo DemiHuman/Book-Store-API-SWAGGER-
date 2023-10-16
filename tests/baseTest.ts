@@ -8,7 +8,6 @@ type types = {
 }
 
 const test = baseTest.extend<types>({
-    baseURL: "https://bookstore.toolsqa.com/",
     api: async ({ request }, use) => { await use(new AccountAPI(request))},
     bookstorePage: async ({ page }, use) => { await use(new BookstorePage(page))}
 })

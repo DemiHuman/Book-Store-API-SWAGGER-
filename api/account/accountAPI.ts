@@ -7,6 +7,10 @@ export default class AccountAPI extends AccountBaseApi {
 
     private userPath = "/User";
     private generateTokenPath = "/GenerateToken";
+
+    constructor(request) {
+        super(request);
+    }
     public async addUser(User: User): Promise<APIResponse> {
         let response = await this.request.post(this.basePath + this.userPath, {
             data: {
