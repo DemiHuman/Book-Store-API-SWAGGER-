@@ -1,11 +1,16 @@
-import { test as baseTest } from '@playwright/test'
+import { test as baseTest } from '@playwright/test';
+import AccountAPI from "../api/account/accountAPI";
+import BookstorePage from "../pages/bookstore.page";
 
-type pages = {
-
+type types = {
+    api: AccountAPI,
+    bookstorePage: BookstorePage
 }
 
-const test = baseTest.extend<pages>({
-    // baseURL: "https://bookstore.toolsqa.com/swagger/#/"
+const test = baseTest.extend<types>({
+    baseURL: "https://bookstore.toolsqa.com/",
+    api: async ({ request }, use) => { await use(new AccountAPI(request))},
+    bookstorePage: async ({ page }, use) => { await use(new BookstorePage(page))}
 })
 
 export default test

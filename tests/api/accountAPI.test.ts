@@ -1,62 +1,22 @@
-import { test, expect, APIResponse} from '@playwright/test'
+import test, { expect } from '../../tests/baseTest';
 import UserUtils from "../../utils/userUtils";
 import User from "../../data/model/user";
-import { UserResponse, TokenResponse} from '../../api/types'
-import AccountAPI from "../../api/account/accountAPI";
+import { UserResponse, TokenResponse } from '../../api/types';
 
-test.describe("Account", () => {
-    test("Account test2", async ({ request}) => {
-        const api = new AccountAPI(request);
-        let user: User;
-        let userResponse: APIResponse;
-        let tokenResponse: APIResponse;
-        let getUserResponse: APIResponse;
-        const basePath = "https://bookstore.toolsqa.com/Account/v1";
-        const userPath = "/User";
-        const generateTokenPath = "/GenerateToken"
+test.describe("Account API", () => {
+    test("Account API test", async ({ api}) => {
+        let randomUser: User;
+        let tokenResponse: TokenResponse;
+        let userResponse: UserResponse
 
-        await test.step("Generate user", () => {
-            user = UserUtils.getUser();
-            console.log(user.username + ": " + user.password);
-        });
-
+        await test.step("Generate new user", () => randomUser = UserUtils.getUser());
         await test.step("Add new user", async () => {
-            userResponse = await request.post(basePath + userPath, {
-                data: {
-                    "userName": user.username,
-                    "password": user.password
-                }
-            });
-
-            expect(userResponse.status(), await userResponse.text()).toBe(201);
+                userResponse = await (await api.addUser(randomUser)).json()});
+        await test.step("Generate token", async () => {
+            tokenResponse = await (await api.generateToken(randomUser)).json()});
+        await test.step("Check getting user. Return 200", async () => {
+            let responseStatus = (await api.getUser(userResponse.userID, tokenResponse.token)).status();
+            expect(responseStatus).toBe(200);
         });
-
-        const postUserResponseBody: UserResponse = await userResponse.json();
-
-        await test.step("Authorized", async () => {
-            tokenResponse = await request.post(basePath + generateTokenPath, {
-                data: {
-                    "userName": user.username,
-                    "password": user.password
-                }
-            });
-
-            expect(tokenResponse.status(), await tokenResponse.text()).toBe(200);
-        });
-
-        const tokenResponseBody: TokenResponse= await tokenResponse.json();
-
-        await test.step("Check user", async () => {
-            getUserResponse = await request.get(basePath + userPath + "/" + postUserResponseBody.userID, {
-                headers: {
-                    "accept": "application/json",
-                    "Authorization": "Bearer " + tokenResponseBody.token,
-                }
-            });
-
-            expect(getUserResponse.status(), await getUserResponse.text()).toBe(200);
-        });
-
-        console.log(tokenResponseBody);
     })
 })
