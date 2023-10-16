@@ -1,4 +1,4 @@
-# Тест сервиса Book Store API(SWAGGER)
+# Автотесты на сервис Book Store API(SWAGGER)
 #### Для запуска тестов требуется:
 ##### Установить [Node.js](https://nodejs.org/)
 ##### Установить зависимости
