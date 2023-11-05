@@ -17,7 +17,7 @@ export default class AccountAPI extends AccountBaseApi {
 
         expect(response.status(), await response.text()).toBe(201);
         return response;
-    }
+    };
 
     public async generateToken(user: User): Promise<APIResponse> {
         let response = await this.post(user, this.basePath + this.generateTokenPath);
@@ -26,14 +26,14 @@ export default class AccountAPI extends AccountBaseApi {
         return response;
     };
 
-    public async makeAuthorized(user: User, path: string): Promise<APIResponse> {
+    public async makeAuthorizedUser(user: User): Promise<APIResponse> {
         let response = await this.post(user, this.basePath + this.authorizedPath);
 
         expect(response.status(), await response.text()).toBe(200);
         return response;
-    }
+    };
 
-    public async delegteUser(userID: string, token: string): Promise<APIResponse> {
+    public async deleteUser(userID: string, token: string): Promise<APIResponse> {
         let response: APIResponse = await this.request.delete(this.basePath + this.userPath + "/" + userID, {
             headers: {
                 "accept": "application/json",
@@ -43,7 +43,7 @@ export default class AccountAPI extends AccountBaseApi {
 
         expect(response.status(), await response.text()).toBe(200);
         return response;
-    }
+    };
 
     public async getUser(userID: string, token: string): Promise<APIResponse> {
         let response: APIResponse = await this.request.get(this.basePath + this.userPath + "/" + userID, {
@@ -55,5 +55,5 @@ export default class AccountAPI extends AccountBaseApi {
 
         expect(response.status(), await response.text()).toBe(200);
         return response;
-    }
+    };
 }

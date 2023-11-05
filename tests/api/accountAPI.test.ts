@@ -7,7 +7,7 @@ test.describe("Account API", () => {
     test("Account API test", async ({ api}) => {
         let randomUser: User;
         let tokenResponse: TokenResponse;
-        let userResponse: UserResponse
+        let userResponse: UserResponse;
 
         await test.step("Generate new user", () => randomUser = UserUtils.getUser());
         await test.step("Add new user", async () => {

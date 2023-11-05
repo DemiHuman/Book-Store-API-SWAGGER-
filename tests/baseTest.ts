@@ -1,6 +1,7 @@
 import { test as baseTest } from '@playwright/test';
 import AccountAPI from "../api/account/accountAPI";
 import BookstorePage from "../pages/bookstore.page";
+import { allure } from "allure-playwright";
 
 type types = {
     api: AccountAPI,
@@ -9,9 +10,10 @@ type types = {
 
 const test = baseTest.extend<types>({
     api: async ({ request }, use) => { await use(new AccountAPI(request))},
-    bookstorePage: async ({ page }, use) => { await use(new BookstorePage(page))}
+    bookstorePage: async ({ page }, use) => { await use(new BookstorePage(page))},
 })
 
 export default test
 
 export const expect = test.expect
+export const allureReport = allure
