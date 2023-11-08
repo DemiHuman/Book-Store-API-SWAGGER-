@@ -8,5 +8,4 @@ export default class UserUtils {
         user.password = "123456Qq*";
         return user;
     }
-
 }

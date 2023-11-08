@@ -3,12 +3,12 @@ import AccountAPI from "../api/account/accountAPI";
 import BookstorePage from "../pages/bookstore.page";
 import { allure } from "allure-playwright";
 
-type types = {
+type Types = {
     api: AccountAPI,
     bookstorePage: BookstorePage
 }
 
-const test = baseTest.extend<types>({
+const test = baseTest.extend<Types>({
     api: async ({ request }, use) => { await use(new AccountAPI(request))},
     bookstorePage: async ({ page }, use) => { await use(new BookstorePage(page))},
 })
