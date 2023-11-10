@@ -5,9 +5,9 @@ import {expect} from "@playwright/test";
 
 export default class AccountAPI extends AccountBaseApi {
 
-    private userPath = "/User";
-    private authorizedPath = "Authorized";
-    private generateTokenPath = "/GenerateToken";
+    readonly userPath = "/User";
+    readonly authorizedPath = "Authorized";
+    readonly generateTokenPath = "/GenerateToken";
 
     constructor(request) {
         super(request);

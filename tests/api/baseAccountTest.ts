@@ -5,7 +5,7 @@ import UserUtils from "../../utils/userUtils";
 import { allure } from "allure-playwright";
 
 type ApiType = {
-    accountAPI: AccountAPI
+    api: AccountAPI
 };
 
 type UserType = {
@@ -13,14 +13,10 @@ type UserType = {
 };
 
 const test  = baseTest.extend<ApiType & UserType>({
-
     user: async ({},use) => {await use(UserUtils.getUser())},
-
-    accountAPI: async ({ request, user }) => {
-        const api: AccountAPI = new AccountAPI(request);
-        await api.addUser(user);
-    }
+    api: async ({ request }, use) => { await use(new AccountAPI(request))}
 });
 
+export default test;
 export const expect = test.expect;
 export const allureReport = allure;
